@@ -1,4 +1,4 @@
-package com.example.weatherapp.ui.StoredWeather
+package com.example.weatherapp.ui.storedWeather
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.material3.Text
@@ -6,11 +6,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import com.example.weatherapp.ui.main.WeatherViewModel
+import androidx.hilt.navigation.compose.hiltViewModel
 import java.util.Date
 
 @Composable
-fun StoredWeather(viewModel: WeatherViewModel) {
+fun StoredWeather(viewModel: WeatherViewModel = hiltViewModel()) {
     val storedWeatherState by viewModel.storedWeatherState.collectAsState()
 
     LaunchedEffect(Unit) {

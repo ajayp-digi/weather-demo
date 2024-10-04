@@ -17,38 +17,6 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.weatherapp.ui.login.viewModel.LoginState
 import com.example.weatherapp.ui.login.viewModel.LoginViewModel
 
-//import com.example.weatherapp.ui.login.viewModel.UserViewModel
-/*
-@Composable
-fun LoginScreen(userViewModel: UserViewModel, onLoginSuccess: () -> Unit) {
-    var username by remember { mutableStateOf("") }
-    var password by remember { mutableStateOf("") }
-
-    val loginState = userViewModel.loginState.collectAsState()
-
-    Column {
-        TextField(
-            value = username,
-            onValueChange = { username = it },
-            label = { Text("Username") }
-        )
-        TextField(
-            value = password,
-            onValueChange = { password = it },
-            label = { Text("Password") },
-            visualTransformation = PasswordVisualTransformation()
-        )
-        Button(onClick = {
-            userViewModel.login(username, password)
-        }) {
-            Text("Login")
-        }
-
-        loginState.value?.let {
-            onLoginSuccess()
-        }
-    }
-}*/
 
 @Composable
 fun LoginScreen(

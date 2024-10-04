@@ -88,7 +88,7 @@ dependencies {
 
 // Kotlin Coroutines
     implementation(libs.kotlinx.coroutines.core)
-   // implementation(libs.kotlinx.coroutines.android.v164)
+    implementation(libs.kotlinx.coroutines.android.v164)
     implementation(libs.androidx.navigation.compose)
 
     // Room

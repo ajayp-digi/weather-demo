@@ -25,7 +25,6 @@ fun AppNavigator() {
             )
         }
         composable("home") {
-           // WeatherTabsScreen()
             HomeScreen()
         }
     }

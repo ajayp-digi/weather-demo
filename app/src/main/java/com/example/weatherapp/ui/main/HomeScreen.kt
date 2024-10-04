@@ -12,8 +12,9 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.example.weatherapp.ui.CurrentWeather.CurrentWeather
-import com.example.weatherapp.ui.StoredWeather.StoredWeather
+import com.example.weatherapp.ui.currentWeather.CurrentWeather
+import com.example.weatherapp.ui.storedWeather.StoredWeather
+import com.example.weatherapp.ui.storedWeather.WeatherViewModel
 
 @Composable
 fun HomeScreen(viewModel: WeatherViewModel = hiltViewModel()) {
