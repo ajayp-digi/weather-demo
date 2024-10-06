@@ -10,5 +10,8 @@ data class WeatherData(
     val country: String,
     val temperature: Double,
     val sunrise: Long,
-    val sunset: Long
+    val sunset: Long,
+    val icon: String,
+    val description: String,
+    val createdTime: Long = System.currentTimeMillis()
 )

@@ -80,22 +80,20 @@ dependencies {
     implementation(libs.gson)
     implementation(libs.okhttp3.logging.interceptor)
     implementation(libs.coil)
-    implementation(libs.lottie)
     implementation(libs.lifecycle.runtime.compose)
-    // Kotlin Coroutines
     implementation(libs.kotlinx.coroutines.android)
     implementation(libs.androidx.lifecycle.viewmodel.ktx.v261)
 
-// Kotlin Coroutines
     implementation(libs.kotlinx.coroutines.core)
-    implementation(libs.kotlinx.coroutines.android.v164)
     implementation(libs.androidx.navigation.compose)
 
     // Room
     implementation(libs.androidx.room.runtime)
     kapt(libs.androidx.room.compiler)
     implementation(libs.androidx.room.ktx)
-
+    implementation(libs.play.services.location)
+    implementation(libs.accompanist.permissions)
+    implementation(libs.kotlinx.coroutines.play.services)
 
     testImplementation(libs.androidx.core.testing)
     testImplementation(libs.kotlinx.coroutines.test)

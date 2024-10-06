@@ -11,7 +11,7 @@ import com.example.weatherapp.ui.main.HomeScreen
 @Composable
 fun AppNavigator() {
     val navController = rememberNavController()
-    NavHost(navController, startDestination = "register") {
+    NavHost(navController, startDestination = "login") {
         composable("register") {
             RegisterScreen(
                 onRegistrationSuccess = { navController.navigate("login") },

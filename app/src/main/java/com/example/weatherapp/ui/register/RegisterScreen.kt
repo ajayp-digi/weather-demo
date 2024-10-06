@@ -11,9 +11,11 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.example.weatherapp.R
 import com.example.weatherapp.ui.register.viewModel.RegisterViewModel
 import com.example.weatherapp.ui.register.viewModel.RegistrationState
 
@@ -34,14 +36,17 @@ fun RegisterScreen(
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Text(text = "Register", style = MaterialTheme.typography.headlineMedium)
+        Text(
+            text = stringResource(R.string.register),
+            style = MaterialTheme.typography.headlineMedium
+        )
 
         Spacer(modifier = Modifier.height(16.dp))
 
         OutlinedTextField(
             value = username.value,
             onValueChange = { username.value = it },
-            label = { Text("Username") },
+            label = { Text(stringResource(R.string.username)) },
             modifier = Modifier.fillMaxWidth()
         )
 
@@ -50,7 +55,7 @@ fun RegisterScreen(
         OutlinedTextField(
             value = password.value,
             onValueChange = { password.value = it },
-            label = { Text("Password") },
+            label = { Text(stringResource(R.string.password)) },
             visualTransformation = PasswordVisualTransformation(),
             modifier = Modifier.fillMaxWidth()
         )
@@ -61,7 +66,7 @@ fun RegisterScreen(
             onClick = { viewModel.registerUser(username.value, password.value) },
             modifier = Modifier.fillMaxWidth()
         ) {
-            Text(text = "Register")
+            Text(text = stringResource(R.string.register))
         }
 
         Spacer(modifier = Modifier.height(16.dp))
@@ -84,7 +89,7 @@ fun RegisterScreen(
         Spacer(modifier = Modifier.height(16.dp))
 
         TextButton(onClick = { onNavigateToLogin() }) {
-            Text(text = "Already have an account? Login")
+            Text(text = stringResource(R.string.already_have_an_account_login))
         }
     }
 }

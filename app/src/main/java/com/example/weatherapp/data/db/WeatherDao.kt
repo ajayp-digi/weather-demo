@@ -10,6 +10,6 @@ interface WeatherDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertWeatherData(weatherData: WeatherData)
 
-    @Query("SELECT * FROM weather_data ORDER BY id DESC LIMIT 1")
-    suspend fun getLatestWeatherData(): WeatherData?
+    @Query("SELECT * FROM weather_data ORDER BY createdTime DESC")
+    suspend fun getLatestWeatherData(): List<WeatherData?>
 }

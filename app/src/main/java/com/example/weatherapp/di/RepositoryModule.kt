@@ -6,7 +6,7 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import com.example.weatherapp.data.network.WeatherApiService
-import com.example.weatherapp.data.repository.DefaultWeatherRepository
+import com.example.weatherapp.data.repository.WeatherRepositoryImpl
 import com.example.weatherapp.data.repository.WeatherRepository
 import javax.inject.Singleton
 
@@ -16,6 +16,9 @@ object RepositoryModule {
 
     @Singleton
     @Provides
-    fun provideRepository(weatherApi: WeatherApiService,weatherDao: WeatherDao): WeatherRepository =
-        DefaultWeatherRepository(weatherApi,weatherDao)
+    fun provideRepository(
+        weatherApi: WeatherApiService,
+        weatherDao: WeatherDao
+    ): WeatherRepository =
+        WeatherRepositoryImpl(weatherApi, weatherDao)
 }

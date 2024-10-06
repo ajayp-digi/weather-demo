@@ -11,9 +11,11 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.example.weatherapp.R
 import com.example.weatherapp.ui.login.viewModel.LoginState
 import com.example.weatherapp.ui.login.viewModel.LoginViewModel
 
@@ -35,14 +37,14 @@ fun LoginScreen(
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Text(text = "Login", style = MaterialTheme.typography.headlineMedium)
+        Text(text = stringResource(R.string.login), style = MaterialTheme.typography.headlineMedium)
 
         Spacer(modifier = Modifier.height(16.dp))
 
         OutlinedTextField(
             value = username.value,
             onValueChange = { username.value = it },
-            label = { Text("Username") },
+            label = { Text(stringResource(R.string.username)) },
             modifier = Modifier.fillMaxWidth()
         )
 
@@ -51,7 +53,7 @@ fun LoginScreen(
         OutlinedTextField(
             value = password.value,
             onValueChange = { password.value = it },
-            label = { Text("Password") },
+            label = { Text(stringResource(R.string.password)) },
             visualTransformation = PasswordVisualTransformation(),
             modifier = Modifier.fillMaxWidth()
         )
@@ -62,7 +64,7 @@ fun LoginScreen(
             onClick = { viewModel.login(username.value, password.value) },
             modifier = Modifier.fillMaxWidth()
         ) {
-            Text(text = "Login")
+            Text(text = stringResource(R.string.login))
         }
 
         Spacer(modifier = Modifier.height(16.dp))
@@ -85,7 +87,7 @@ fun LoginScreen(
         Spacer(modifier = Modifier.height(16.dp))
 
         TextButton(onClick = { onNavigateToRegister() }) {
-            Text(text = "Don't have an account? Register")
+            Text(text = stringResource(R.string.don_t_have_an_account_register))
         }
     }
 }

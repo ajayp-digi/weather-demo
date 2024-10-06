@@ -1,3 +1,18 @@
 <resources>
     <string name="app_name">WeatherApp</string>
+    <string name="data_not_found">Data Not Found.</string>
+    <string name="internet_msg">No internet connection available.</string>
+    <string name="retry">Retry</string>
+    <string name="openSetting">Open App Settings</string>
+    <string name="permission_permanently_denied">Location permission denied permanently. Please enable it in settings.</string>
+    <string name="request_permission">Request Location Permission</string>
+    <string name="required_permission_msg">Location permission is required to access your location.</string>
+    <string name="register">Register</string>
+    <string name="username">Username</string>
+    <string name="password">Password</string>
+    <string name="already_have_an_account_login">Already have an account? Login</string>
+    <string name="current_weather">Current Weather</string>
+    <string name="stored_weather">Stored Weather</string>
+    <string name="login">Login</string>
+    <string name="don_t_have_an_account_register">Don\'t have an account? Register</string>
 </resources>

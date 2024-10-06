@@ -31,6 +31,7 @@ object AppModule {
     fun provideUserDao(db: AppDatabase): UserDao {
         return db.userDao()
     }
+
     @Singleton
     @Provides
     fun provideWeatherDao(db: AppDatabase): WeatherDao {

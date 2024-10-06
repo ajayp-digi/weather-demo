@@ -1,4 +1,5 @@
 package com.example.weatherapp.data.repository
+
 import com.example.weatherapp.data.db.WeatherDao
 import com.example.weatherapp.data.db.WeatherData
 import com.example.weatherapp.data.network.WeatherApiService
@@ -12,7 +13,7 @@ import retrofit2.HttpException
 import java.io.IOException
 import javax.inject.Inject
 
-class DefaultWeatherRepository @Inject constructor(
+class WeatherRepositoryImpl @Inject constructor(
     private val weatherApi: WeatherApiService,
     private val weatherDao: WeatherDao,
     private val dispatcher: CoroutineDispatcher = Dispatchers.IO,
@@ -22,17 +23,19 @@ class DefaultWeatherRepository @Inject constructor(
         lat: Double,
         lon: Double,
         apiKey: String
-    ):Flow<Result<WeatherData>> = flow {
+    ): Flow<Result<WeatherData>> = flow {
         emit(com.example.weatherapp.utils.Result.Loading)
         try {
             val response = weatherApi.getWeather(lat, lon, apiKey)
 
             val weatherData = WeatherData(
-                city = response.name?:"",
-                country = response.sys?.country?:"",
-                temperature = response.main?.temp?:0.0,
-                sunrise = response.sys?.sunrise?.toLong()?:0L,
-                sunset = response.sys?.sunset?.toLong()?:0L
+                city = response.name ?: "",
+                country = response.sys?.country ?: "",
+                temperature = response.main?.temp ?: 0.0,
+                sunrise = response.sys?.sunrise?.toLong() ?: 0L,
+                sunset = response.sys?.sunset?.toLong() ?: 0L,
+                description = response.weather.first().description ?: "",
+                icon = response.weather.first().icon ?: ""
             )
             weatherDao.insertWeatherData(weatherData)
             emit(Result.Success(weatherData))
@@ -44,14 +47,10 @@ class DefaultWeatherRepository @Inject constructor(
     }.flowOn(dispatcher)
 
 
-    override suspend fun getStoredWeatherData(): Flow<Result<WeatherData>?> = flow {
+    override suspend fun getStoredWeatherData(): Flow<Result<List<WeatherData?>>> = flow {
         emit(com.example.weatherapp.utils.Result.Loading)
         try {
-        val result = weatherDao.getLatestWeatherData()?:WeatherData(city = "",
-            country = "",
-            temperature = 0.0,
-            sunrise = 0L,
-            sunset = 0L);
+            val result = weatherDao.getLatestWeatherData()
             emit(com.example.weatherapp.utils.Result.Success(result))
         } catch (exception: IOException) {
             emit(com.example.weatherapp.utils.Result.Error("Please check your network connection and try again!"))
