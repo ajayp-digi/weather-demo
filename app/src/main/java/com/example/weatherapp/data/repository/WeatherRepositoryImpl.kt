@@ -24,7 +24,7 @@ class WeatherRepositoryImpl @Inject constructor(
         lon: Double,
         apiKey: String
     ): Flow<Result<WeatherData>> = flow {
-        emit(com.example.weatherapp.utils.Result.Loading)
+        emit(Result.Loading)
         try {
             val response = weatherApi.getWeather(lat, lon, apiKey)
 
@@ -48,7 +48,7 @@ class WeatherRepositoryImpl @Inject constructor(
 
 
     override suspend fun getStoredWeatherData(): Flow<Result<List<WeatherData?>>> = flow {
-        emit(com.example.weatherapp.utils.Result.Loading)
+        emit(Result.Loading)
         try {
             val result = weatherDao.getLatestWeatherData()
             emit(com.example.weatherapp.utils.Result.Success(result))
