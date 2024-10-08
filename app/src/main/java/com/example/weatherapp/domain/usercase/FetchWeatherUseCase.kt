@@ -1,8 +1,7 @@
-package com.example.weatherapp.data.domain.usercase
+package com.example.weatherapp.domain.usercase
 
-import com.example.weatherapp.data.db.WeatherDao
 import com.example.weatherapp.data.db.WeatherData
-import com.example.weatherapp.data.repository.WeatherRepository
+import com.example.weatherapp.domain.repository.WeatherRepository
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 

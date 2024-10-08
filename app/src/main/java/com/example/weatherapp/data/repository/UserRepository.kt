@@ -10,11 +10,15 @@ class UserRepository @Inject constructor(private val userDao: UserDao) {
         userDao.insertUser(user)
     }
 
-    suspend fun getUserByUsername(username: String): User? {
-        return userDao.getUserByUsername(username)
+    suspend fun getUserByEmail(email: String): User? {
+        return userDao.getUserByEmail(email)
     }
 
-    suspend fun login(username: String, password: String): User? {
-        return userDao.login(username, password)
+    suspend fun checkIfUserLoggedIn(): User? {
+        return userDao.checkIfUserLoggedIn()
+    }
+
+    suspend fun login(email: String, password: String): User? {
+        return userDao.login(email, password)
     }
 }

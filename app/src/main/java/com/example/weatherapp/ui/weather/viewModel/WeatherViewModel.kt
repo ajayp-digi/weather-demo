@@ -5,8 +5,8 @@ import android.location.Location
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.weatherapp.R
-import com.example.weatherapp.data.domain.usercase.FetchWeatherUseCase
-import com.example.weatherapp.data.domain.usercase.GetStoredWeatherUseCase
+import com.example.weatherapp.domain.usercase.FetchWeatherUseCase
+import com.example.weatherapp.domain.usercase.GetStoredWeatherUseCase
 import com.example.weatherapp.data.managers.LocationManager
 import com.example.weatherapp.ui.weather.state.StoreWeatherState
 import com.example.weatherapp.ui.weather.state.WeatherState

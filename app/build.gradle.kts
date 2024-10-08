@@ -22,6 +22,7 @@ android {
             useSupportLibrary = true
         }
         buildConfigField("String", "API_KEY", "\"${property("API_KEY")}\"")
+        buildConfigField("String", "CIPHER_KEY", "\"${property("CIPHER_KEY")}\"")
     }
 
     buildTypes {
@@ -93,6 +94,8 @@ dependencies {
     implementation(libs.play.services.location)
     implementation(libs.accompanist.permissions)
     implementation(libs.kotlinx.coroutines.play.services)
+    implementation("net.zetetic:android-database-sqlcipher:4.5.3")
+    implementation("androidx.sqlite:sqlite:2.1.0")
 
     testImplementation(libs.androidx.core.testing)
     testImplementation(libs.kotlinx.coroutines.test)

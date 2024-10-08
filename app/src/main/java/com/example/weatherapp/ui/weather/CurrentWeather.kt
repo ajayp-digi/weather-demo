@@ -22,6 +22,7 @@ import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
@@ -53,32 +54,31 @@ fun CurrentWeather(viewModel: WeatherViewModel = hiltViewModel()) {
     val context = LocalContext.current
     val location by viewModel.location.collectAsStateWithLifecycle()
     val weatherState by viewModel.weatherState.collectAsState()
+    var isWeatherFetched = rememberSaveable {
+        false
+    }
 
     LaunchedEffect(location) {
-        location?.let {
-            viewModel.fetchWeather(
-                lat = it.latitude,
-                lon = it.longitude,
-                apiKey = BuildConfig.API_KEY,
-                context = context
-            )
-        }
-    }
-    val locationPermissionState =
-        rememberPermissionState(permission = Manifest.permission.ACCESS_FINE_LOCATION)
-
-    val lifecycleOwner = LocalLifecycleOwner.current
-    DisposableEffect(lifecycleOwner) {
-        val observer = LifecycleEventObserver { _, event ->
-            if (event == Lifecycle.Event.ON_RESUME) {
-                viewModel.fetchLocation() // Perform action when app resumes
+        if (!isWeatherFetched) {
+            location?.let {
+                viewModel.fetchWeather(
+                    lat = it.latitude,
+                    lon = it.longitude,
+                    apiKey = BuildConfig.API_KEY,
+                    context = context
+                )
             }
         }
-        lifecycleOwner.lifecycle.addObserver(observer)
-        onDispose {
-            lifecycleOwner.lifecycle.removeObserver(observer)
+    }
+
+    LaunchedEffect(key1 = weatherState) {
+        if (weatherState is WeatherState.Success) {
+            isWeatherFetched = true
         }
     }
+
+    val locationPermissionState =
+        rememberPermissionState(permission = Manifest.permission.ACCESS_FINE_LOCATION)
 
     LaunchedEffect(locationPermissionState.status.isGranted) {
         if (locationPermissionState.status.isGranted) {

@@ -1,5 +1,8 @@
 package com.example.weatherapp.ui.register
 
+import android.content.Context
+import android.util.Patterns
+import android.widget.Toast
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.Button
 import androidx.compose.material3.CircularProgressIndicator
@@ -18,21 +21,23 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.weatherapp.R
 import com.example.weatherapp.ui.register.viewModel.RegisterViewModel
 import com.example.weatherapp.ui.register.viewModel.RegistrationState
+import com.example.weatherapp.ui.theme.Dimensions
 
 @Composable
 fun RegisterScreen(
+    context: Context,
     viewModel: RegisterViewModel = hiltViewModel(),
     onRegistrationSuccess: () -> Unit,
     onNavigateToLogin: () -> Unit
 ) {
-    val username = remember { mutableStateOf("") }
+    val email = remember { mutableStateOf("") }
     val password = remember { mutableStateOf("") }
     val registrationState by viewModel.registrationState.collectAsState()
 
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .padding(16.dp),
+            .padding(Dimensions.SIXTEEN_DP),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
@@ -41,16 +46,16 @@ fun RegisterScreen(
             style = MaterialTheme.typography.headlineMedium
         )
 
-        Spacer(modifier = Modifier.height(16.dp))
+        Spacer(modifier = Modifier.height(Dimensions.SIXTEEN_DP))
 
         OutlinedTextField(
-            value = username.value,
-            onValueChange = { username.value = it },
-            label = { Text(stringResource(R.string.username)) },
+            value = email.value,
+            onValueChange = { email.value = it },
+            label = { Text(stringResource(R.string.email)) },
             modifier = Modifier.fillMaxWidth()
         )
 
-        Spacer(modifier = Modifier.height(16.dp))
+        Spacer(modifier = Modifier.height(Dimensions.SIXTEEN_DP))
 
         OutlinedTextField(
             value = password.value,
@@ -60,16 +65,26 @@ fun RegisterScreen(
             modifier = Modifier.fillMaxWidth()
         )
 
-        Spacer(modifier = Modifier.height(16.dp))
+        Spacer(modifier = Modifier.height(Dimensions.SIXTEEN_DP))
 
         Button(
-            onClick = { viewModel.registerUser(username.value, password.value) },
+            onClick = {
+                if (Patterns.EMAIL_ADDRESS.matcher(email.value.trim()).matches() && password.value.isNotBlank()) {
+                    viewModel.registerUser(email.value, password.value)
+                } else if (!Patterns.EMAIL_ADDRESS.matcher(email.value.trim()).matches()) {
+                    Toast.makeText(context, context.getString(R.string.email_error), Toast.LENGTH_LONG)
+                        .show()
+                } else {
+                    Toast.makeText(context, context.getString(R.string.password_error), Toast.LENGTH_LONG)
+                        .show()
+                }
+            },
             modifier = Modifier.fillMaxWidth()
         ) {
             Text(text = stringResource(R.string.register))
         }
 
-        Spacer(modifier = Modifier.height(16.dp))
+        Spacer(modifier = Modifier.height(Dimensions.SIXTEEN_DP))
 
         if (registrationState is RegistrationState.Loading) {
             CircularProgressIndicator()
@@ -86,7 +101,7 @@ fun RegisterScreen(
             Text(text = errorMessage, color = Color.Red)
         }
 
-        Spacer(modifier = Modifier.height(16.dp))
+        Spacer(modifier = Modifier.height(Dimensions.SIXTEEN_DP))
 
         TextButton(onClick = { onNavigateToLogin() }) {
             Text(text = stringResource(R.string.already_have_an_account_login))

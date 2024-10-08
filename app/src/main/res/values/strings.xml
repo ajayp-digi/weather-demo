@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">WeatherApp</string>
+    <string name="app_name">Weather App</string>
     <string name="data_not_found">Data Not Found.</string>
     <string name="internet_msg">No internet connection available.</string>
     <string name="retry">Retry</string>
@@ -8,8 +8,14 @@
     <string name="request_permission">Request Location Permission</string>
     <string name="required_permission_msg">Location permission is required to access your location.</string>
     <string name="register">Register</string>
-    <string name="username">Username</string>
+    <string name="email">Email</string>
     <string name="password">Password</string>
+    <string name="login_route">login</string>
+    <string name="splash_route">splash</string>
+    <string name="register_route">register</string>
+    <string name="home_route">home</string>
+    <string name="password_error">Please enter password</string>
+    <string name="email_error">Please enter valid email address</string>
     <string name="already_have_an_account_login">Already have an account? Login</string>
     <string name="current_weather">Current Weather</string>
     <string name="stored_weather">Stored Weather</string>

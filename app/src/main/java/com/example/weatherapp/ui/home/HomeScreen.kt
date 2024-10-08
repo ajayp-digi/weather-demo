@@ -1,4 +1,4 @@
-package com.example.weatherapp.ui.main
+package com.example.weatherapp.ui.home
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
