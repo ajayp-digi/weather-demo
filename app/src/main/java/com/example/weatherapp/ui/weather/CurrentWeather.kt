@@ -130,7 +130,8 @@ fun weatherInfoPage(weatherState: WeatherData?) {
             modifier = Modifier.fillMaxWidth()
         ) {
 
-            val formattedDate = SimpleDateFormat("dd/MM/yyyy hh:mm a")
+            val formattedDate = SimpleDateFormat("dd/MM/yyyy")
+            val formattedSunTime = SimpleDateFormat("hh:mm a")
 
             Row(horizontalArrangement = Arrangement.Center, modifier = Modifier.fillMaxWidth()) {
                 Icon(Icons.Filled.LocationOn,"")
@@ -143,6 +144,20 @@ fun weatherInfoPage(weatherState: WeatherData?) {
             Text(formattedDate.format(Date(weather.sunrise * 1000)), fontWeight = FontWeight.Bold, modifier = Modifier
                 .fillMaxWidth()
                 .align(Alignment.CenterHorizontally), textAlign = TextAlign.Center)
+
+            Spacer(modifier = Modifier.height(Dimensions.TEN_DP))
+
+            Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.Center, modifier = Modifier.fillMaxWidth()) {
+                Image(painter = painterResource(id = R.drawable.sunrise), contentDescription = "Sunrise Icon", modifier = Modifier.size(Dimensions.THIRTY_TWO_DP))
+                Spacer(modifier = Modifier.width(Dimensions.FIVE_DP))
+                Text(formattedSunTime.format(Date(weather.sunrise * 1000)), fontWeight = FontWeight.Bold)
+
+                Spacer(modifier = Modifier.width(Dimensions.SIXTEEN_DP))
+
+                Image(painter = painterResource(id = R.drawable.sunset), contentDescription = "Sunrise Icon", modifier = Modifier.size(Dimensions.THIRTY_TWO_DP))
+                Spacer(modifier = Modifier.width(Dimensions.FIVE_DP))
+                Text(formattedSunTime.format(Date(weather.sunset * 1000)), fontWeight = FontWeight.Bold)
+            }
 
             Spacer(modifier = Modifier.height(Dimensions.TEN_DP))
 

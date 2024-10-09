@@ -9,6 +9,8 @@ object Dimensions {
     val EIGHT_DP = 8.dp
     val FIVE_DP = 5.dp
     val FIFTEEN_DP = 15.dp
+    val FORTY_DP = 40.dp
+    val THIRTY_TWO_DP = 32.dp
     val TWO_FIFTY_DP = 250.dp
     val ONE_FIFTY_DP = 250.dp
     val SIXTEEN_SP = 16.sp

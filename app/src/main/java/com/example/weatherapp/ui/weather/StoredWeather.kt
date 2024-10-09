@@ -31,6 +31,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.capitalize
 import androidx.compose.ui.text.font.FontWeight
@@ -101,7 +102,8 @@ fun StoredWeather(viewModel: WeatherViewModel = hiltViewModel()) {
                                             .padding(Dimensions.FIVE_DP),
                                     ) {
 
-                                        val formattedDate = SimpleDateFormat("dd/MM/yyyy hh:mm a", java.util.Locale.getDefault())
+                                        val formattedDate = SimpleDateFormat("dd/MM/yyyy", java.util.Locale.getDefault())
+                                        val formattedSunTime = SimpleDateFormat("hh:mm a", java.util.Locale.getDefault())
 
                                         Row(
                                             horizontalArrangement = Arrangement.Center,
@@ -114,14 +116,23 @@ fun StoredWeather(viewModel: WeatherViewModel = hiltViewModel()) {
 
                                         Spacer(modifier = Modifier.height(Dimensions.TEN_DP))
 
-                                        Text(
-                                            formattedDate.format(Date(weather.sunrise * 1000)),
-                                            fontWeight = FontWeight.Bold,
-                                            modifier = Modifier
-                                                .fillMaxWidth()
-                                                .align(Alignment.CenterHorizontally),
-                                            textAlign = TextAlign.Center
-                                        )
+                                        Text(formattedDate.format(Date(weather.sunrise * 1000)), fontWeight = FontWeight.Bold, modifier = Modifier
+                                            .fillMaxWidth()
+                                            .align(Alignment.CenterHorizontally), textAlign = TextAlign.Center)
+
+                                        Spacer(modifier = Modifier.height(Dimensions.TEN_DP))
+
+                                        Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.Center, modifier = Modifier.fillMaxWidth()) {
+                                            Image(painter = painterResource(id = R.drawable.sunrise), contentDescription = "Sunrise Icon", modifier = Modifier.size(Dimensions.THIRTY_TWO_DP))
+                                            Spacer(modifier = Modifier.width(Dimensions.FIVE_DP))
+                                            Text(formattedSunTime.format(Date(weather.sunrise * 1000)), fontWeight = FontWeight.Bold)
+
+                                            Spacer(modifier = Modifier.width(Dimensions.SIXTEEN_DP))
+
+                                            Image(painter = painterResource(id = R.drawable.sunset), contentDescription = "Sunrise Icon", modifier = Modifier.size(Dimensions.THIRTY_TWO_DP))
+                                            Spacer(modifier = Modifier.width(Dimensions.FIVE_DP))
+                                            Text(formattedSunTime.format(Date(weather.sunset * 1000)), fontWeight = FontWeight.Bold)
+                                        }
 
                                         Spacer(modifier = Modifier.height(Dimensions.TEN_DP))
 
