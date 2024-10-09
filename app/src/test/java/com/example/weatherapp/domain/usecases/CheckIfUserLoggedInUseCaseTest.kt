@@ -1,11 +1,8 @@
 package com.example.weatherapp.domain.usecases
 import com.example.weatherapp.data.db.User
-import com.example.weatherapp.data.db.WeatherDao
 import com.example.weatherapp.data.repository.UserRepository
-import com.example.weatherapp.domain.repository.WeatherRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.test.StandardTestDispatcher
 import kotlinx.coroutines.test.TestScope
 import kotlinx.coroutines.test.advanceUntilIdle
@@ -23,7 +20,6 @@ import org.mockito.Mock
 import org.mockito.Mockito.*
 import org.mockito.junit.MockitoJUnit
 import org.mockito.junit.MockitoRule
-import javax.inject.Inject
 
 @OptIn(ExperimentalCoroutinesApi::class)
 @RunWith(JUnit4::class)
@@ -36,14 +32,6 @@ class CheckIfUserLoggedInUseCaseTest {
 
     @get:Rule
     val mockitoRule: MockitoRule = MockitoJUnit.rule()
-
-    @Mock
-    lateinit var weatherRepository: WeatherRepository
-
-    @Mock
-    lateinit var weatherDao: WeatherDao
-
-    private lateinit var getStoredWeatherUseCase: GetStoredWeatherUseCase
 
     private val testDispatcher = StandardTestDispatcher()
 

@@ -100,7 +100,7 @@ fun LoginScreen(
 
         if (loginState is LoginState.Failure) {
             val errorMessage = (loginState as LoginState.Failure).message
-            Text(text = errorMessage, color = Color.Red)
+            Text(text = stringResource(id = errorMessage), color = Color.Red)
         }
 
         Spacer(modifier = Modifier.height(Dimensions.SIXTEEN_DP))

@@ -2,7 +2,6 @@ package com.example.weatherapp.ui.weather
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
@@ -20,7 +19,6 @@ import androidx.compose.material.icons.filled.LocationOn
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.CardElevation
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
@@ -37,8 +35,6 @@ import androidx.compose.ui.text.capitalize
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.intl.Locale
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import coil.compose.rememberAsyncImagePainter
 import com.example.weatherapp.R
@@ -102,8 +98,8 @@ fun StoredWeather(viewModel: WeatherViewModel = hiltViewModel()) {
                                             .padding(Dimensions.FIVE_DP),
                                     ) {
 
-                                        val formattedDate = SimpleDateFormat("dd/MM/yyyy", java.util.Locale.getDefault())
-                                        val formattedSunTime = SimpleDateFormat("hh:mm a", java.util.Locale.getDefault())
+                                        val formattedDate = SimpleDateFormat(stringResource(R.string.dd_mm_yyyy), java.util.Locale.getDefault())
+                                        val formattedSunTime = SimpleDateFormat(stringResource(R.string.hh_mm_a), java.util.Locale.getDefault())
 
                                         Row(
                                             horizontalArrangement = Arrangement.Center,
@@ -156,7 +152,7 @@ fun StoredWeather(viewModel: WeatherViewModel = hiltViewModel()) {
                                         Column(horizontalAlignment = Alignment.Start) {
                                             Text(text = weather.description.capitalize(Locale.current))
                                             Text(
-                                                "${weather.temperature}°C",
+                                                stringResource(id = R.string.temp_c, weather.temperature),
                                                 fontWeight = FontWeight.Bold,
                                                 fontSize = Dimensions.FORTY_SP
                                             )

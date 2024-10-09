@@ -1,6 +1,6 @@
 package com.example.weatherapp.ui.weather
 
-import android.Manifest
+
 import android.content.Intent
 import android.net.Uri
 import android.provider.Settings
@@ -22,12 +22,6 @@ import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.DisposableEffect
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
@@ -38,37 +32,23 @@ import androidx.compose.ui.text.capitalize
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.intl.Locale
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.core.content.ContextCompat.startActivity
-import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.LifecycleEventObserver
-import androidx.lifecycle.compose.LocalLifecycleOwner
-import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import coil.compose.rememberAsyncImagePainter
-import coil.size.Dimension
-import com.example.weatherapp.BuildConfig
 import com.example.weatherapp.R
 import com.example.weatherapp.data.db.WeatherData
 import com.example.weatherapp.ui.theme.Dimensions
 import com.example.weatherapp.ui.weather.state.WeatherState
-import com.example.weatherapp.ui.weather.viewModel.WeatherViewModel
 import com.example.weatherapp.utils.iconUrl
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.PermissionState
 import com.google.accompanist.permissions.PermissionStatus
-import com.google.accompanist.permissions.isGranted
-import com.google.accompanist.permissions.rememberPermissionState
 import java.text.SimpleDateFormat
 import java.util.Date
 
 @OptIn(ExperimentalPermissionsApi::class)
 @Composable
-fun CurrentWeather(viewModel: WeatherViewModel = hiltViewModel(), locationPermissionState: PermissionState,
+fun CurrentWeather(locationPermissionState: PermissionState,
                    weatherState: WeatherState, fetchLocation: () -> Unit) {
-    val context = LocalContext.current
-
 
     Column(
         modifier = Modifier
@@ -86,12 +66,12 @@ fun CurrentWeather(viewModel: WeatherViewModel = hiltViewModel(), locationPermis
                     }
 
                     is WeatherState.Success -> {
-                        val weatherData = (weatherState as WeatherState.Success).weatherData
+                        val weatherData = (weatherState).weatherData
                         weatherInfoPage(weatherData)
                     }
 
                     is WeatherState.Error -> {
-                        val message = (weatherState as WeatherState.Error).message
+                        val message = (weatherState).message
                         Text(text = "Error: $message")
                         Spacer(modifier = Modifier.height(Dimensions.SIXTEEN_DP))
                         Button(onClick = {
@@ -130,8 +110,8 @@ fun weatherInfoPage(weatherState: WeatherData?) {
             modifier = Modifier.fillMaxWidth()
         ) {
 
-            val formattedDate = SimpleDateFormat("dd/MM/yyyy")
-            val formattedSunTime = SimpleDateFormat("hh:mm a")
+            val formattedDate = SimpleDateFormat(stringResource(R.string.dd_mm_yyyy), java.util.Locale.getDefault())
+            val formattedSunTime = SimpleDateFormat(stringResource(R.string.hh_mm_a), java.util.Locale.getDefault())
 
             Row(horizontalArrangement = Arrangement.Center, modifier = Modifier.fillMaxWidth()) {
                 Icon(Icons.Filled.LocationOn,"")
@@ -176,7 +156,7 @@ fun weatherInfoPage(weatherState: WeatherData?) {
             
             Column(horizontalAlignment = Alignment.Start) {
                 Text(text = weather.description.capitalize(Locale.current))
-                Text("${weather.temperature}°C", fontWeight = FontWeight.Bold, fontSize = Dimensions.FORTY_SP)
+                Text(stringResource(id = R.string.temp_c, weather.temperature), fontWeight = FontWeight.Bold, fontSize = Dimensions.FORTY_SP)
             }
         }
     }

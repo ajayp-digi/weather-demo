@@ -1,5 +1,7 @@
 package com.example.weatherapp.data.repository
 
+import android.content.Context
+import com.example.weatherapp.R
 import com.example.weatherapp.data.db.WeatherDao
 import com.example.weatherapp.data.db.WeatherData
 import com.example.weatherapp.data.network.WeatherApiService
@@ -10,11 +12,13 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 import com.example.weatherapp.utils.Result
+import dagger.hilt.android.qualifiers.ApplicationContext
 import retrofit2.HttpException
 import java.io.IOException
 import javax.inject.Inject
 
 class WeatherRepositoryImpl @Inject constructor(
+    @ApplicationContext val context: Context,
     private val weatherApi: WeatherApiService,
     private val weatherDao: WeatherDao,
     private val dispatcher: CoroutineDispatcher = Dispatchers.IO,
@@ -43,7 +47,7 @@ class WeatherRepositoryImpl @Inject constructor(
         } catch (exception: HttpException) {
             emit(Result.Error(exception.message.orEmpty()))
         } catch (exception: IOException) {
-            emit(Result.Error("Please check your network connection and try again!"))
+            emit(Result.Error(context.getString(R.string.network_error)))
         }
     }.flowOn(dispatcher)
 
@@ -54,7 +58,7 @@ class WeatherRepositoryImpl @Inject constructor(
             val result = weatherDao.getLatestWeatherData()
             emit(com.example.weatherapp.utils.Result.Success(result))
         } catch (exception: IOException) {
-            emit(com.example.weatherapp.utils.Result.Error("Please check your network connection and try again!"))
+            emit(com.example.weatherapp.utils.Result.Error(context.getString(R.string.network_error)))
         }
     }.flowOn(dispatcher)
 }

@@ -7,7 +7,6 @@ import javax.inject.Inject
 
 class FetchWeatherUseCase @Inject constructor(
     private val weatherRepository: WeatherRepository,
-   // private val weatherDao: WeatherDao
 ) {
     suspend fun fetchWeather(
         lat: Double,

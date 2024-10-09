@@ -21,4 +21,10 @@
     <string name="stored_weather">Stored Weather</string>
     <string name="login">Login</string>
     <string name="don_t_have_an_account_register">Don\'t have an account? Register</string>
+    <string name="temp_c">%.1f°C</string>
+    <string name="dd_mm_yyyy">dd/MM/yyyy</string>
+    <string name="hh_mm_a">hh:mm a</string>
+    <string name="network_error">Please check your network connection and try again!</string>
+    <string name="invalid_credentials">Invalid credentials!</string>
+    <string name="user_already_exists">User already exists!</string>
 </resources>

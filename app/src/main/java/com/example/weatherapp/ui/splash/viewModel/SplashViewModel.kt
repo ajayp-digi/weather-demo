@@ -5,10 +5,6 @@ import androidx.lifecycle.viewModelScope
 import com.example.weatherapp.domain.usecases.CheckIfUserLoggedInUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.time.delay
-import java.time.Duration
-import java.util.Timer
-import java.util.TimerTask
 import javax.inject.Inject
 
 @HiltViewModel
@@ -23,7 +19,7 @@ class SplashViewModel @Inject constructor(private val useCase: CheckIfUserLogged
                 }
     }
 
-    suspend fun checkIfAlreadyLoggedIn(): Boolean {
+    private suspend fun checkIfAlreadyLoggedIn(): Boolean {
         return useCase.checkIfUserLoggedIn()
     }
 }

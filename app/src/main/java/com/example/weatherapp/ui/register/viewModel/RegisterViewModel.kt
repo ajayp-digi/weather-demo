@@ -2,6 +2,7 @@ package com.example.weatherapp.ui.register.viewModel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.weatherapp.R
 import com.example.weatherapp.domain.usecases.RegisterUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -22,7 +23,7 @@ class RegisterViewModel @Inject constructor(private val registerUseCase: Registe
             _registrationState.value = if (success) {
                 RegistrationState.Success
             } else {
-                RegistrationState.Failure("User already exists!")
+                RegistrationState.Failure(R.string.user_already_exists)
             }
         }
     }
@@ -32,6 +33,6 @@ sealed class RegistrationState {
     object Idle : RegistrationState()
     object Loading : RegistrationState()
     object Success : RegistrationState()
-    data class Failure(val message: String) : RegistrationState()
+    data class Failure(val message: Int) : RegistrationState()
 }
 

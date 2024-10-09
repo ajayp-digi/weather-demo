@@ -1,12 +1,10 @@
 package com.example.weatherapp.domain.usecases
-import com.example.weatherapp.data.db.WeatherDao
 import com.example.weatherapp.data.db.WeatherData
 import com.example.weatherapp.domain.repository.WeatherRepository
 import com.example.weatherapp.utils.Result
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.flowOf
-import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.test.StandardTestDispatcher
 import kotlinx.coroutines.test.TestScope
 import kotlinx.coroutines.test.advanceUntilIdle
@@ -15,7 +13,6 @@ import kotlinx.coroutines.test.runTest
 import kotlinx.coroutines.test.setMain
 import org.junit.After
 import org.junit.Assert.assertEquals
-import org.junit.Assert.assertThrows
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -25,7 +22,6 @@ import org.mockito.Mock
 import org.mockito.Mockito.*
 import org.mockito.junit.MockitoJUnit
 import org.mockito.junit.MockitoRule
-import java.io.IOException
 
 @OptIn(ExperimentalCoroutinesApi::class)
 @RunWith(JUnit4::class)
@@ -36,9 +32,6 @@ class GetStoredWeatherUseCaseTest {
 
     @Mock
     lateinit var weatherRepository: WeatherRepository
-
-    @Mock
-    lateinit var weatherDao: WeatherDao
 
     private lateinit var getStoredWeatherUseCase: GetStoredWeatherUseCase
 

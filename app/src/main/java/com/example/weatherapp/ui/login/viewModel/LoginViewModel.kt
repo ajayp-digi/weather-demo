@@ -2,6 +2,7 @@ package com.example.weatherapp.ui.login.viewModel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.weatherapp.R
 import com.example.weatherapp.domain.usecases.LoginUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -22,7 +23,7 @@ class LoginViewModel @Inject constructor(private val loginUseCase: LoginUseCase)
             _loginState.value = if (user != null) {
                 LoginState.Success
             } else {
-                LoginState.Failure("Invalid credentials!")
+                LoginState.Failure(R.string.invalid_credentials)
             }
         }
     }
@@ -32,5 +33,5 @@ sealed class LoginState {
     object Idle : LoginState()
     object Loading : LoginState()
     object Success : LoginState()
-    data class Failure(val message: String) : LoginState()
+    data class Failure(val message: Int) : LoginState()
 }

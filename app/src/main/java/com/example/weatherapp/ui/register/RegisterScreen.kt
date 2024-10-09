@@ -16,7 +16,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.PasswordVisualTransformation
-import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.weatherapp.R
 import com.example.weatherapp.ui.register.viewModel.RegisterViewModel
@@ -98,7 +97,7 @@ fun RegisterScreen(
 
         if (registrationState is RegistrationState.Failure) {
             val errorMessage = (registrationState as RegistrationState.Failure).message
-            Text(text = errorMessage, color = Color.Red)
+            Text(text = stringResource(id = errorMessage), color = Color.Red)
         }
 
         Spacer(modifier = Modifier.height(Dimensions.SIXTEEN_DP))

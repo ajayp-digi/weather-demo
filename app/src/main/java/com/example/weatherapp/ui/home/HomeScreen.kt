@@ -9,7 +9,6 @@ import androidx.compose.material3.TabRow
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.remember
@@ -17,7 +16,6 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.weatherapp.BuildConfig
@@ -56,7 +54,7 @@ fun HomeScreen(viewModel: WeatherViewModel = hiltViewModel()) {
     val locationPermissionState =
         rememberPermissionState(permission = Manifest.permission.ACCESS_FINE_LOCATION)
 
-    LaunchedEffect(locationPermissionState) {
+    LaunchedEffect(locationPermissionState.status) {
         if (locationPermissionState.status.isGranted) {
             viewModel.fetchLocation() // Fetch location once permission is granted
         } else {
@@ -79,7 +77,7 @@ fun HomeScreen(viewModel: WeatherViewModel = hiltViewModel()) {
             }
         }
         when (selectedTabIndex) {
-            0 -> CurrentWeather(viewModel, locationPermissionState, weatherState) {
+            0 -> CurrentWeather(locationPermissionState, weatherState) {
                 location?.let {
                     viewModel.fetchWeather(
                         lat = it.latitude,

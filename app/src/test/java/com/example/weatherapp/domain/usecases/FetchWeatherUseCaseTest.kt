@@ -1,6 +1,4 @@
 package com.example.weatherapp.domain.usecases
-import androidx.test.ext.junit.runners.AndroidJUnit4
-import com.example.weatherapp.data.db.WeatherDao
 import com.example.weatherapp.data.db.WeatherData
 import com.example.weatherapp.domain.repository.WeatherRepository
 import com.example.weatherapp.utils.Result
@@ -8,8 +6,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.flowOf
-import kotlinx.coroutines.flow.onErrorResume
-import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.test.StandardTestDispatcher
 import kotlinx.coroutines.test.TestScope
 import kotlinx.coroutines.test.advanceUntilIdle
@@ -27,7 +23,6 @@ import org.mockito.Mock
 import org.mockito.Mockito.*
 import org.mockito.junit.MockitoJUnit
 import org.mockito.junit.MockitoRule
-import javax.inject.Inject
 
 @OptIn(ExperimentalCoroutinesApi::class)
 @RunWith(JUnit4::class)
@@ -40,11 +35,6 @@ class FetchWeatherUseCaseTest {
 
     @Mock
     lateinit var weatherRepository: WeatherRepository
-
-    @Mock
-    lateinit var weatherDao: WeatherDao
-
-    private lateinit var getStoredWeatherUseCase: GetStoredWeatherUseCase
 
     private val testDispatcher = StandardTestDispatcher()
 
@@ -88,11 +78,9 @@ class FetchWeatherUseCaseTest {
     @Test
     fun testFetchWeather_failure(): Unit = testScope.runTest {
         // Arrange
-        val exception = Exception("Network Error")
         `when`(weatherRepository.fetchWeatherFromApi(1.0, 1.0, "apiKey")).thenReturn(flowOf(Result.Error("Network Error")))
 
         // Act
-
             fetchWeatherUseCase.fetchWeather(1.0, 1.0, "apiKey")
                 .catch {
                     assertEquals("Network Error", it.message)
