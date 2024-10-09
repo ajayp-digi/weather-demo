@@ -30,3 +30,5 @@ We have a unit test coverage of more than 95% which includes all of our viewmode
 ![Screenshot_2024-10-09-08-16-18-740_com example weatherapp](https://github.com/user-attachments/assets/ecb8bf08-c290-414d-80e3-58478a36c657)
 ![Screenshot_2024-10-09-08-16-13-103_com example weatherapp](https://github.com/user-attachments/assets/e6979196-f0cf-4877-b1e9-7462a7071170)
 
+NOTE: Being only contributor I have put all code in master directly.
+
