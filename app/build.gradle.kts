@@ -35,11 +35,11 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_11
+        targetCompatibility = JavaVersion.VERSION_11
     }
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = "11"
     }
     buildFeatures {
         compose = true
@@ -65,6 +65,9 @@ dependencies {
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
+    implementation(libs.androidx.junit.ktx)
+    implementation(libs.androidx.runner)
+    implementation(libs.core)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -94,10 +97,14 @@ dependencies {
     implementation(libs.play.services.location)
     implementation(libs.accompanist.permissions)
     implementation(libs.kotlinx.coroutines.play.services)
-    implementation("net.zetetic:android-database-sqlcipher:4.5.3")
-    implementation("androidx.sqlite:sqlite:2.1.0")
+    implementation(libs.android.database.sqlcipher)
+    implementation("androidx.sqlite:sqlite:2.4.0")
 
-    testImplementation(libs.androidx.core.testing)
     testImplementation(libs.kotlinx.coroutines.test)
+
+    testImplementation(libs.junit.v413)
+    testImplementation(libs.mockito.core.v521)
+    testImplementation(libs.mockito.kotlin.v521)
+
 
 }

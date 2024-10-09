@@ -2,7 +2,9 @@ package com.example.weatherapp.ui.weather
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -10,10 +12,17 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.LocationOn
 import androidx.compose.material3.Button
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.CardElevation
 import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -23,13 +32,20 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.capitalize
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.intl.Locale
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import coil.compose.rememberAsyncImagePainter
 import com.example.weatherapp.R
+import com.example.weatherapp.ui.theme.Dimensions
 import com.example.weatherapp.ui.weather.state.StoreWeatherState
 import com.example.weatherapp.ui.weather.viewModel.WeatherViewModel
 import com.example.weatherapp.utils.iconUrl
+import java.text.SimpleDateFormat
 import java.util.Date
 
 @Composable
@@ -44,7 +60,7 @@ fun StoredWeather(viewModel: WeatherViewModel = hiltViewModel()) {
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .padding(16.dp),
+            .padding(Dimensions.EIGHT_DP),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
@@ -56,7 +72,7 @@ fun StoredWeather(viewModel: WeatherViewModel = hiltViewModel()) {
             is StoreWeatherState.Error -> {
                 val message = (storedWeatherState as StoreWeatherState.Error).message
                 Text(text = "Error: $message")
-                Spacer(modifier = Modifier.height(16.dp))
+                Spacer(modifier = Modifier.height(Dimensions.SIXTEEN_DP))
                 Button(onClick = {
                     viewModel.getStoredWeather()
                 }) {
@@ -71,46 +87,72 @@ fun StoredWeather(viewModel: WeatherViewModel = hiltViewModel()) {
                 storedWeatherData.let {
                     LazyColumn(
                         modifier = Modifier
-                            .fillMaxSize()
-                            .padding(16.dp)
+                            .fillMaxSize(),
+                        contentPadding = PaddingValues(Dimensions.EIGHT_DP),
+                        verticalArrangement = Arrangement.spacedBy(Dimensions.EIGHT_DP)
                     ) {
                         items(it) { weather ->
-                            Column(
-                                horizontalAlignment = Alignment.CenterHorizontally,
-                                modifier = Modifier.fillMaxWidth()
-                            ) {
-                                Row(verticalAlignment = Alignment.CenterVertically) {
-                                    if (weather != null) {
-                                        Image(
-                                            painter = rememberAsyncImagePainter(iconUrl(weather.icon)),
-                                            contentDescription = "Weather Icon",
+                            weather?.let {
+                                Card (elevation = CardDefaults.elevatedCardElevation(defaultElevation = Dimensions.FIVE_DP)){
+                                    Column(
+                                        verticalArrangement = Arrangement.Top,
+                                        modifier = Modifier
+                                            .fillMaxWidth()
+                                            .padding(Dimensions.FIVE_DP),
+                                    ) {
+
+                                        val formattedDate = SimpleDateFormat("dd/MM/yyyy hh:mm a", java.util.Locale.getDefault())
+
+                                        Row(
+                                            horizontalArrangement = Arrangement.Center,
+                                            modifier = Modifier.fillMaxWidth()
+                                        ) {
+                                            Icon(Icons.Filled.LocationOn, "")
+                                            Spacer(modifier = Modifier.width(Dimensions.SIXTEEN_DP))
+                                            Text("${weather.city}, ${weather.country}")
+                                        }
+
+                                        Spacer(modifier = Modifier.height(Dimensions.TEN_DP))
+
+                                        Text(
+                                            formattedDate.format(Date(weather.sunrise * 1000)),
+                                            fontWeight = FontWeight.Bold,
                                             modifier = Modifier
-                                                .size(64.dp)
-                                                .padding(top = 8.dp),
-                                            contentScale = ContentScale.Fit
+                                                .fillMaxWidth()
+                                                .align(Alignment.CenterHorizontally),
+                                            textAlign = TextAlign.Center
                                         )
+
+                                        Spacer(modifier = Modifier.height(Dimensions.TEN_DP))
+
+                                        Row(
+                                            verticalAlignment = Alignment.CenterVertically,
+                                            horizontalArrangement = Arrangement.Center,
+                                            modifier = Modifier.fillMaxWidth()
+                                        ) {
+                                            Image(
+                                                painter = rememberAsyncImagePainter(iconUrl(weather.icon)),
+                                                contentDescription = "Weather Icon",
+                                                modifier = Modifier
+                                                    .size(Dimensions.ONE_FIFTY_DP),
+                                                contentScale = ContentScale.Fit
+                                            )
+
+                                        }
+
+                                        Spacer(modifier = Modifier.height(Dimensions.TEN_DP))
+
+                                        Column(horizontalAlignment = Alignment.Start) {
+                                            Text(text = weather.description.capitalize(Locale.current))
+                                            Text(
+                                                "${weather.temperature}°C",
+                                                fontWeight = FontWeight.Bold,
+                                                fontSize = Dimensions.FORTY_SP
+                                            )
+                                        }
                                     }
-                                    if (weather != null) {
-                                        Text(text = weather.description)
-                                    }
-                                }
-
-
-                            }
-                            Spacer(modifier = Modifier.height(8.dp)) // Space between items
-
-                            Column {
-                                Text("City: ${weather?.city}")
-                                Text("Country: ${weather?.country}")
-                                Text("Temperature: ${weather?.temperature}°C")
-                                if (weather != null) {
-                                    Text("Sunrise: ${Date(weather.sunrise * 1000)}")
-                                }
-                                if (weather != null) {
-                                    Text("Sunset: ${Date(weather.sunset * 1000)}")
                                 }
                             }
-                            Spacer(modifier = Modifier.height(8.dp)) // Space between items
                         }
                     }
                 }

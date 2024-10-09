@@ -4,7 +4,7 @@ import com.example.weatherapp.data.db.User
 import com.example.weatherapp.data.db.UserDao
 import javax.inject.Inject
 
-class UserRepository @Inject constructor(private val userDao: UserDao) {
+open class UserRepository @Inject constructor(private val userDao: UserDao) {
 
     suspend fun insertUser(user: User) {
         userDao.insertUser(user)

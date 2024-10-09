@@ -1,4 +1,4 @@
-package com.example.weatherapp.domain.usercase
+package com.example.weatherapp.domain.usecases
 
 import com.example.weatherapp.data.db.User
 import com.example.weatherapp.data.repository.UserRepository
